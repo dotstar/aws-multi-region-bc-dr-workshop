@@ -304,6 +304,7 @@ Resources:
               - 'logs:PutLogEvents'
 
             Resource: '*'
+            
 
   # This is a role which is used by the ECS tasks. Tasks in Amazon ECS define
   # the containers that should be deployed togehter and the resources they
