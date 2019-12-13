@@ -245,7 +245,7 @@ Resources:
       SecurityGroupIngress:
           # Allow access to NLB from anywhere on the internet
           - CidrIp: !FindInMap ['SubnetConfig', 'VPC', 'CIDR']
-            IpProtocol: -1
+            IpProtocol: '-1'
 
   # This is an IAM role which authorizes ECS to manage resources on your
   # account on your behalf, such as updating your load balancer with the
@@ -435,10 +435,10 @@ Resources:
     Condition: PrimaryRegion
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Cpu: 256
+      Cpu: '256'
       ExecutionRoleArn: !GetAtt EcsServiceRole.Arn
       Family: !Sub Core-Service-${AWS::StackName}
-      Memory: 512
+      Memory: '512'
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
@@ -478,10 +478,10 @@ Resources:
     Condition: PrimaryRegion
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Cpu: 256
+      Cpu: '256'
       ExecutionRoleArn: !GetAtt EcsServiceRole.Arn
       Family: !Sub Like-Service-${AWS::StackName}
-      Memory: 512
+      Memory: '512'
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
@@ -523,10 +523,10 @@ Resources:
     Condition: SecondaryRegion
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Cpu: 256
+      Cpu: '256'
       ExecutionRoleArn: !GetAtt EcsServiceRole.Arn
       Family: !Sub Secondary-Core-Service-${AWS::StackName}
-      Memory: 512
+      Memory: '512'
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
@@ -566,10 +566,10 @@ Resources:
     Condition: SecondaryRegion
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Cpu: 256
+      Cpu: '256'
       ExecutionRoleArn: !GetAtt EcsServiceRole.Arn
       Family: !Sub Secondary-Like-Service-${AWS::StackName}
-      Memory: 512
+      Memory: '512'
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
@@ -613,7 +613,7 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       TaskDefinition: !Ref SecondaryCoreServiceTaskDefinition
-      DesiredCount: 1
+      DesiredCount: 2
       LaunchType: FARGATE
       LoadBalancers:
       - TargetGroupArn: !Ref MythicalServiceTargetGroup
@@ -635,7 +635,7 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       TaskDefinition: !Ref SecondaryLikeServiceTaskDefinition
-      DesiredCount: 1
+      DesiredCount: 2
       LaunchType: FARGATE
       LoadBalancers:
       - TargetGroupArn: !Ref LikeServiceTargetGroup
@@ -700,7 +700,7 @@ Resources:
       TargetType: ip
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
-          Value: 30
+          Value: '30'
 
   LikeServiceTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
@@ -716,7 +716,7 @@ Resources:
       TargetType: ip
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
-          Value: 30
+          Value: '30'
 
   MythicalLikeListenerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
@@ -760,7 +760,7 @@ Resources:
     # Removing from secondary region for time being. Todo.
     Condition: PrimaryRegion
     Type: Custom::CleanDelete
-    DependsOn: CleanDeletionLambdaFunction
+    # DependsOn: CleanDeletionLambdaFunction
     Properties:
       ServiceToken: !GetAtt CleanDeletionLambdaFunction.Arn
       Region: !Ref AWS::Region
@@ -775,7 +775,7 @@ Resources:
     # Removing from secondary region for time being. Todo.
     Condition: SecondaryRegion
     Type: Custom::CleanDelete
-    DependsOn: CleanDeletionLambdaFunction
+    # DependsOn: CleanDeletionLambdaFunction
     Properties:
       ServiceToken: !GetAtt CleanDeletionLambdaFunction.Arn
       Region: !Ref AWS::Region
@@ -790,7 +790,7 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Code:
-        ZipFile: !Sub |
+        ZipFile: |
           from __future__ import print_function
           import boto3
           import logging
@@ -883,7 +883,7 @@ Resources:
       Role:
         !If [PrimaryRegion, !GetAtt 'LambdaExecutionRole.Arn', !GetAtt 'SecondaryLambdaExecutionRole.Arn']
       Runtime: python3.7
-      Timeout: '300'
+      Timeout: 300
 
   LambdaExecutionRole:
     Condition: PrimaryRegion

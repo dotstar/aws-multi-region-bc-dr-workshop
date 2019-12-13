@@ -14,7 +14,9 @@ import mysfitsTableClient
 # [TODO] load x-ray recorder class
 # [TODO] load x-ray patch function
 # [TODO] load middleware function for flask
-
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.core import patch
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 
 if 'LOGLEVEL' in os.environ:
     loglevel = os.environ['LOGLEVEL'].upper()
@@ -26,11 +28,17 @@ logging.basicConfig(level=loglevel)
 # Configure xray_recorder class to name your service and load the ECS plugin for 
 # additional metadata.
 # [TODO] configure the x-ray recorder with a service name and load the ecs plugin
-
+plugins = ('ecs_plugin',)
+xray_recorder.configure(
+  service = 'Like Service',
+  plugins = plugins,
+  context_missing='LOG_ERROR'
+)
 
 # Configure X-Ray to trace service client calls to downstream AWS services
 # [TODO] patch the boto3 library
-
+libraries = ('boto3',)
+patch(libraries)
 
 app = Flask(__name__)
 CORS(app)
@@ -38,7 +46,7 @@ app.logger
 
 # Instantiate the Flask middleware
 # [TODO] configure middleware with the flask app and x-ray recorder
-
+XRayMiddleware(app, xray_recorder)
 
 # The service basepath has a short response just to ensure that healthchecks
 # sent to the service root will receive a healthy response.
@@ -51,10 +59,10 @@ def like_mysfit(mysfit_id):
     app.logger.info('Like received.')
     if os.environ['CHAOSMODE'] == "on":
         n = random.randint(1,100)
-        if n < 30:
+        if n < 12:
             app.logger.warn('WARN: simulated 500 activated')
             abort(500)
-        elif n < 60:
+        elif n < 24:
             app.logger.warn('WARN: simulated 404 activated')
             abort(404)
         app.logger.warn('WARN: This thing should NOT be left on..')
