@@ -11,6 +11,10 @@ To support our global expansion, we're doubling down on our digital adoption exp
 
 To recap our progress to date, we've modernized our stack to be containerized microservices deployed with AWS Fargate. We manage our resources using infrastructure as code and have a fully automated CI/CD pipeline that deploys our code changes. Our solution architects have drafted a DR plan that leverages a secondary region. We need your help to carry out this plan by first improving observability, so we can make data driven decisions for things like regional failover. Then we'll need help with data replication, multi-region builds, and traffic management. Can you help us out?
 
+### Note
+This is a fork of the excellent workshop [aws-multi-region](https://github.com/aws-samples/aws-multi-region-bc-dr-workshop.git).  This version is for a single region, and we pre-bake some of the tasks associated with instrumenting and application for x-ray.  For a more immersive experience, please take a run through that workshop.
+
+Our focus is to look at a couple of alternatives for instrumentation which are consistent with the Operatonal Excellence and Performance Efficiency pillars of the [AWS Well Architected Framework](https://aws.amazon.com/architecture/well-architected/).
 ### Requirements
 
 * AWS account - if you're doing this workshop as a part of an AWS event, you will be provided an account through a platform called Event Engine. The workshop administrator will provide instructions. If the event specifies you'll need your own account or if you're doing this workshop on your own, it's easy and free to [create an account](https://aws.amazon.com/) if you do not have one already.
@@ -25,9 +29,7 @@ The labs in the workshop are designed to be completed in sequence, and the full 
 * **[Lab 0](lab-0-init):** Deploy existing Mythical stack
 * **[Lab 1](lab-1-xray):** Improve microservices observability with distributed tracing
 * **[Lab 2](lab-2-agg):** Build an operational dashboard
-* **[Lab 3](lab-3-mr-prep):** Prepare the app for multi-region deployments
-* **[Lab 4](lab-4-globalacc):** Implement AWS Global Accelerator and test traffic management
-* **[Lab 5](lab-5-loadtest):** Load test the system to test manual failover based on operational metrics
+
 <!-- * **[Bonus Lab](/):** [DOES NOT EXIST YET] Implement automated failover and active-active-->
 * **Workshop Cleanup** [Cleanup working environment](#important-workshop-cleanup)
 

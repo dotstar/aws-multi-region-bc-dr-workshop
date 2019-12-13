@@ -12,11 +12,7 @@
 
 [Lab 2: Operationalize Observability - Aggregate Metrics](../lab-2-agg)
 
-[Lab 3: Preparing for Multi-Region Deployments](../lab-3-mr-prep)
 
-[Lab 4: Implement Traffic Management - Global Accelerator](../lab-4-globalacc)
-
-[Lab 5: Load Test and Failover your multi-region application](../lab-5-loadtest)
 
 ## Lab 0 - Workshop Initialization
 
@@ -61,7 +57,7 @@ If you're not attending an AWS event, you will need to use your own account. Mak
 
     Region | Launch Template
     ------------ | -------------  
-    **Oregon** (us-west-2) | [![Launch Mythical Mysfits Stack into Oregon with CloudFormation](/images/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=mm-multi-region&templateURL=https://mythical-mysfits-website.s3.amazonaws.com/multi-region-bcdr/core.yml)
+    **Ohio** (us-ease-2) | [![Launch Mythical Mysfits Stack into Oregon with CloudFormation](/images/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=mm-multi-region&templateURL=https://mythical-mysfits-website.s3.amazonaws.com/multi-region-bcdr/core.yml)
 
     The link will load the AWS CloudFormation console in the selected region and populate the Amazon S3 URL with the location of the core workshop CloudFormation template. If you want to review the core and nested templates, you can find them in the cfn folder of the GitHub repo.
 
@@ -173,7 +169,7 @@ Further reading:
 There are a bunch of scripts that bootstrap the workshop environment. Clone the workshop respository to pull the files down locally to your Cloud9 IDE:
 
 <pre>
-$ git clone https://github.com/aws-samples/aws-multi-region-bc-dr-workshop.git
+$ git clone https://github.com/dotstar/aws-multi-region-bc-dr-workshop.git
 </pre>
 
 #### d. Run the setup script to bootstrap the workshop environment
@@ -185,11 +181,28 @@ The setup script will perform actions like install dependencies, perform an init
 Run the following commands to run the setup script.
 
 <pre>
-$ cd ~/environment/aws-multi-region-bc-dr-workshop
-$ bootstrap/setup
+cd ~/environment/aws-multi-region-bc-dr-workshop
+
+bootstrap/setup
 </pre>
 
-The script takes less than a minute to run. When you see **"Profile associated successfully. Script completed. Please continue on with Lab-1!"**, that means bootstrap has completed.
+The script takes less than a minute to run. 
+
+Among the things which the bootstrap does is pushing code to [AWS Codecommit](https://aws.amazon.com/codecommit/), a fully-managed source control service that hosts secure Git-based repositories.
+
+The push triggers a couple of build pipelines in [AWS Codepipeline](https://aws.amazon.com/codepipeline/).  Within several minutes, your microservices will be built, pushed to Fargate, and registered with a load balancer.  If you are interested in watching the progress of this build, open [CodePipeline](https://us-east-2.console.aws.amazon.com/codesuite/codepipeline/pipelines?region=us-east-2) in the AWS console.  
+
+The end-to-end time of building and deploying these services will take about 5 minutes.
+
+Determine the DNS name of the load balancer.
+
+<pre>
+grep LoadBalancerDNS ~/environment/aws-multi-region-bc-dr-workshop/cfn-output.json
+</pre>
+
+Open a new tab and browsed to that address.  In several minutes, the service becomes available.
+
+When you see **"Profile associated successfully. Script completed. Please continue on with Lab-1!"**, that means bootstrap has completed.
 
 ![Cloud9 Editing](images/setup-complete.png)
 
