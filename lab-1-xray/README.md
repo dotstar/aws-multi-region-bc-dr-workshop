@@ -25,7 +25,6 @@ In this lab, you'll continue where our lead developer left off before she was pu
 
 ![Lab 1 X-Ray](./images/01-errors.png)
 
-![Response Time](./images/01-response-time.png)
 
 The Mythical Mysfits application is made up of (2) microservices:
 
@@ -92,6 +91,21 @@ You probably noticed that the **like** service has a problem.  About 25% of the 
 
 ![Response Time](./images/01-response-time.png)
 
+You may have also discovered that the response time graph is _lumpy_.  A significant amount of traces return in < 1 mSec, while the p98 is close to 10 mSec.  What could account for this behavior?
+<details>
+<summary>Hint</summary>
+
+There are a mix of PUTs and GETs.  The PUTs do significantly more work, including updating a database.  The GETs are probably being served from cache. It is also possible that our errors return more quickly.  We could use filters to determine which of these theories is correct.
+
+Here is the same data, filtered for errors ...
+
+
+![Filter - errors](./images/01-errorfilter.png)
+
+
+We will next explore filters.
+
+</details>
 
 ### [2] Reduce the signal from the noise
 
