@@ -34,7 +34,7 @@ if (x.startswith('http')):
 else:
     URL = "http://"+x
 
-for n in range(1200):
+for n in range(2500):
     r = requests.post(URL+"/mysfits/%s/like" % mysfits[random.randint(0,11)])
     print("Request %s returned: %s" % (n,r))
-    time.sleep(0.20)
+    time.sleep(0.10)

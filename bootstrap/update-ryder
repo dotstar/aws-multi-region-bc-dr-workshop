@@ -1,0 +1,14 @@
+#!/bin/bash
+TOP=~/environment/aws-multi-region-bc-dr-workshop
+cd $TOP
+pwd
+RYDER=lab-1-xray/utils/ryder.py
+EP=$(grep LoadBalancerDNS cfn-output.json | awk '{print $2}' | sed 's/"//g' | sed 's/,//')
+echo $EP
+cat - >./ryder <<EOF
+#!/bin/bash
+cd $TOP
+export ENDPOINT=$EP
+python $RYDER
+EOF
+chmod +x ryder

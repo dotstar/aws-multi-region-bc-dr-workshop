@@ -1,4 +1,4 @@
-stackName=mm4
+stackName=mm5
 bucket=daveaws/cloudformation/mm
 rolearn=arn:aws:iam::428505257828:role/cdd
 all: core

@@ -20,4 +20,6 @@ echo "Push like service code to repo"
 bootstrap/codecommit/push
 echo "Assigning Instance Profile"
 bootstrap/associate-profile
+echo "Customizing workload generation script ryder"
+bootstrap/update-ryder
 echo "Script completed. Please continue on with Lab-1!"
