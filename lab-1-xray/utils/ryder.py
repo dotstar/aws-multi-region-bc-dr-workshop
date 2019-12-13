@@ -36,5 +36,9 @@ else:
 
 for n in range(2500):
     r = requests.post(URL+"/mysfits/%s/like" % mysfits[random.randint(0,11)])
-    print("Request %s returned: %s" % (n,r))
+    print("Request %s (PUT) returned: %s" % (n,r))
+	# Every third loop issue a GET to the core service
+	if n % 3 = 0:
+		r = requests.get(URL)
+		print("Request %s (GET) returned: %s" % (n,r))
     time.sleep(0.10)

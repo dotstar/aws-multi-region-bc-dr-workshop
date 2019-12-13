@@ -32,15 +32,15 @@ Mappings:
   # ranges to add more
   SubnetConfig:
     VPC:
-      CIDR: '10.0.0.0/16'
+      CIDR: '10.21.0.0/16'
     PublicOne:
-      CIDR: '10.0.0.0/24'
+      CIDR: '10.21.0.0/24'
     PublicTwo:
-      CIDR: '10.0.1.0/24'
+      CIDR: '10.21.1.0/24'
     PrivateOne:
-      CIDR: '10.0.2.0/24'
+      CIDR: '10.21.2.0/24'
     PrivateTwo:
-      CIDR: '10.0.3.0/24'
+      CIDR: '10.21.3.0/24'
 
 Conditions:
   PrimaryRegion: !Equals [ !Ref IsSecondary, false ]
@@ -435,10 +435,10 @@ Resources:
     Condition: PrimaryRegion
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Cpu: '256'
+      Cpu: '512'
       ExecutionRoleArn: !GetAtt EcsServiceRole.Arn
       Family: !Sub Core-Service-${AWS::StackName}
-      Memory: '512'
+      Memory: '1024'
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
@@ -478,10 +478,10 @@ Resources:
     Condition: PrimaryRegion
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Cpu: '256'
+      Cpu: '512'
       ExecutionRoleArn: !GetAtt EcsServiceRole.Arn
       Family: !Sub Like-Service-${AWS::StackName}
-      Memory: '512'
+      Memory: '1024'
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
@@ -523,10 +523,10 @@ Resources:
     Condition: SecondaryRegion
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Cpu: '256'
+      Cpu: '512'
       ExecutionRoleArn: !GetAtt EcsServiceRole.Arn
       Family: !Sub Secondary-Core-Service-${AWS::StackName}
-      Memory: '512'
+      Memory: '1024'
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
@@ -692,7 +692,7 @@ Resources:
       HealthCheckIntervalSeconds: 10
       HealthCheckPath: /
       HealthCheckProtocol: HTTP
-      HealthyThresholdCount: 3
+      HealthyThresholdCount: 2
       UnhealthyThresholdCount: 3
       Port: 8080
       Protocol: HTTP
@@ -708,8 +708,8 @@ Resources:
       HealthCheckIntervalSeconds: 10
       HealthCheckPath: /
       HealthCheckProtocol: HTTP
-      HealthyThresholdCount: 3
-      UnhealthyThresholdCount: 3
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 2
       Port: 8080
       Protocol: HTTP
       VpcId: !Ref VPC
