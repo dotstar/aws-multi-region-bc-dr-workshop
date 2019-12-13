@@ -12,7 +12,7 @@ To support our global expansion, we're doubling down on our digital adoption exp
 To recap our progress to date, we've modernized our stack to be containerized microservices deployed with AWS Fargate. We manage our resources using infrastructure as code and have a fully automated CI/CD pipeline that deploys our code changes. Our solution architects have drafted a DR plan that leverages a secondary region. We need your help to carry out this plan by first improving observability, so we can make data driven decisions for things like regional failover. Then we'll need help with data replication, multi-region builds, and traffic management. Can you help us out?
 
 ### Note
-This is a fork of the excellent workshop [aws-multi-region](https://github.com/aws-samples/aws-multi-region-bc-dr-workshop.git).  This version is for a single region, and we pre-bake some of the tasks associated with instrumenting and application for x-ray.  For a more immersive experience, please take a run through that workshop.
+This is a fork of the excellent workshop [aws-multi-region](https://github.com/aws-samples/aws-multi-region-bc-dr-workshop.git).  This version is for a single region, and we pre-bake some of the tasks associated with instrumenting the application for x-ray.  For a more immersive experience, please take a run through that workshop.
 
 Our focus is to look at a couple of alternatives for instrumentation which are consistent with the Operatonal Excellence and Performance Efficiency pillars of the [AWS Well Architected Framework](https://aws.amazon.com/architecture/well-architected/).
 ### Requirements

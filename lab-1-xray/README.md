@@ -15,12 +15,6 @@
 
 [Lab 2: Operationalize Observability - Aggregate Metrics](../lab-2-agg)
 
-[Lab 3: Preparing for Multi-Region Deployments](../lab-3-mr-prep)
-
-[Lab 4: Implement Traffic Management - Global Accelerator](../lab-4-globalacc)
-
-[Lab 5: Load Test and Failover your multi-region application](../lab-5-loadtest)
-
 ## LAB 1 - Instrument Observability - Distributed Tracing with AWS X-Ray
 
 Observability helps quantify how we are able to meet our availability requirements. An important aspect of observability especially in a microservices architecture is distributed tracing. This enables the ability to profile a request as it passes through our application architecture which may involve one or more services and potentially interactions with backend data stores. Data captured from traces helps teams understand how the application behaves under various conditions and can be incredibly helpful when issues arise. For example, developers can use the data to identify inefficiencies in code and prioritize their sprints. Operations or SRE (site reliability engineering) teams can use the data to diagnose or triage unusual latencies or failures. Infrastructure engineers can use the data to make adjustments to resident scaling policies or resources supporting particular services.
@@ -67,6 +61,11 @@ Similar to how an actual sidecar is attached to a motorocycle, a sidecar contain
 
 AWS provides X-Ray SDKs for many popular programming languages such as python, javascript, go, java, etc. The SDK provides interceptors to trace incoming HTTP requests, client handlers to instrument AWS SDK clients used to call other AWS services, and an HTTP client to instrument calls to other http web services. You can also patch certain supported libraries such as database clients. Support will vary with each language specific SDK, so consult the documentation to read more. Since Mythical Mysfits services are based on Flask, you'll use the python SDK. Additionally, the X-Ray SDK for Python includes middleware that traces incoming requests for Flask (and Django) frameworks. Convenient! If you aren't using either of these, but still use python for your implementation, you can use the python SDK to manually instrument segments.
 
+Open the [X-Ray](https://us-east-2.console.aws.amazon.com/xray/home?region=us-east-2#/service-map) console.
+
+<details>
+<summary>X-Ray instrumentation details</summary>
+	
 When instrumenting an app with the X-Ray SDK, you first need to install the SDK. For convenience, that was already done for you during workshop bootstrap. If you look at `requirements.txt` for the Like service, you'll see we include the `aws-xray-sdk` when the container image is built.
 
 Further reading:
@@ -379,7 +378,7 @@ Since Mythical Mysfits moved to a microservices architecture, it was apparent th
     The pipeline will take a few minutes to complete, so feel free to move on to the next section. If you want to watch the pipeline, navigate to the CodePipeline dashboard in the AWS console and click on the pipeline for the Like service which begins with `LikePipeline-`. When it's completed, it will look similar to the screenshot below.
 
     ![CodePipeline for Like service](./images/01-03-likeServicePipeline.png)
-
+</details>
 ### [4] Test your configuration
 
 Now that you've instrumented the like service, you should see additional trace data being reported to the service map in the X-Ray console whenever users use the like functionality in the application. This will include inbound http requests to the X-Ray service as well as downstream calls to DynamoDB when it increments the like counters for each mysfit liked.

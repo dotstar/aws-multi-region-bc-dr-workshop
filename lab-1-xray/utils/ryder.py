@@ -20,25 +20,25 @@ mysfits = [
 ]
 
 if 'ENDPOINT' in os.environ:
-    x = os.environ['ENDPOINT']    
+   x = os.environ['ENDPOINT']    
 elif (sys.version_info > (3,0)):
-    x = input("Enter an ENDPOINT:PORT combination [port is optional]: ")
+   x = input("Enter an ENDPOINT:PORT combination [port is optional]: ")
 else: 
-    x = raw_input("Enter an ENDPOINT:PORT combination [port is optional]: ")
+   x = raw_input("Enter an ENDPOINT:PORT combination [port is optional]: ")
 
 if (x.startswith('http')):
-    if (x.endswith('/')):
-        URL = x[:-1]
-    else:
-        URL = x
+   if (x.endswith('/')):
+      URL = x[:-1]
+   else:
+      URL = x
 else:
-    URL = "http://"+x
+   URL = "http://"+x
 
 for n in range(2500):
-    r = requests.post(URL+"/mysfits/%s/like" % mysfits[random.randint(0,11)])
-    print("Request %s (PUT) returned: %s" % (n,r))
-	# Every third loop issue a GET to the core service
-	if n % 3 = 0:
-		r = requests.get(URL)
-		print("Request %s (GET) returned: %s" % (n,r))
-    time.sleep(0.10)
+   r = requests.post(URL+"/mysfits/%s/like" % mysfits[random.randint(0,11)])
+   print("Request %s (PUT) returned: %s" % (n,r))
+   # Every figth loop issue a GET to the core service
+   if n % 5 == 0 :
+      r = requests.get(URL)
+      print("Request %s (GET) returned: %s" % (n,r))
+   time.sleep(0.10)
