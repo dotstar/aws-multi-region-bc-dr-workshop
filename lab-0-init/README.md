@@ -188,6 +188,12 @@ bootstrap/setup
 
 The script takes less than a minute to run. 
 
+
+
+When you see **"Profile associated successfully. Script completed. Please continue on with Lab-1!"**, that means bootstrap has completed.
+
+![Cloud9 Editing](images/setup-complete.png)
+
 Among the things which the bootstrap does is pushing code to [AWS Codecommit](https://aws.amazon.com/codecommit/), a fully-managed source control service that hosts secure Git-based repositories.
 
 The push triggers a couple of build pipelines in [AWS Codepipeline](https://aws.amazon.com/codepipeline/).  Within several minutes, your microservices will be built, pushed to Fargate, and registered with a load balancer.  If you are interested in watching the progress of this build, open [CodePipeline](https://us-east-2.console.aws.amazon.com/codesuite/codepipeline/pipelines?region=us-east-2) in the AWS console.  
@@ -202,14 +208,8 @@ grep LoadBalancerDNS ~/environment/aws-multi-region-bc-dr-workshop/cfn-output.js
 
 Open a new tab and browsed to that address.  In several minutes, the service becomes available.
 
-When you see **"Profile associated successfully. Script completed. Please continue on with Lab-1!"**, that means bootstrap has completed.
-
-![Cloud9 Editing](images/setup-complete.png)
 
 # Checkpoint
 
-You now have an operational workshop environment to work with. [Proceed to Lab 1](../lab-1-xray)
+When you browse to the load balancer endpoint, and see the Mysfits, you are ready to move on to lab 1. [Proceed to Lab 1](../lab-1-xray)
 
-## Participation
-
-We encourage participation; if you find anything, please submit an [issue](https://github.com/aws-samples/aws-multi-region-bc-dr-workshop/issues). However, if you want to help raise the bar, submit a [PR](https://github.com/aws-samples/aws-multi-region-bc-dr-workshop/pulls)!
