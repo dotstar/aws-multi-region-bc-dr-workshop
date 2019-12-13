@@ -1,4 +1,4 @@
-# Mythical Mysfits: Building Multi-Region Applications that Align with BC/DR Objectives
+# Mythical Mysfits: A Micro-services application for Operational Excellence Exploration
 
 ![mysfits-welcome](../images/mysfits-welcome.png)
 
@@ -169,7 +169,7 @@ Further reading:
 There are a bunch of scripts that bootstrap the workshop environment. Clone the workshop respository to pull the files down locally to your Cloud9 IDE:
 
 <pre>
-$ git clone https://github.com/dotstar/aws-multi-region-bc-dr-workshop.git
+git clone https://github.com/dotstar/aws-multi-region-bc-dr-workshop.git
 </pre>
 
 #### d. Run the setup script to bootstrap the workshop environment

@@ -1,4 +1,4 @@
-# Mythical Mysfits: Building Multi-Region Applications that Align with BC/DR Objectives
+# Mythical Mysfits: A Micro-services application for Operational Excellence Exploration
 
 ## Overview
 ![mysfits-welcome](/images/mysfits-welcome.png)
