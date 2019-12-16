@@ -7,10 +7,8 @@
 
 **Lab 1: Instrument Observability - Distributed Tracing with AWS X-Ray**
 
-- [Note about the X-Ray daemon](#1-quick-note-about-the-x-ray-daemon)
-- [Instrument the Like service code using AWS X-Ray SDK and AWS Cloud9](#2-instrument-the-like-service-code-using-the-aws-x-ray-sdk-and-aws-cloud9)
-- [Deploy Like service changes](#3-deploy-the-changes-you-made-to-the-like-service)
-- [Test your configuration](#4-test-your-configuration)
+
+- [Test AWS X-Ray](#4-test-your-configuration)
 - [Reduce the signal from the noise](#5-reduce-the-signal-from-the-noise)
 
 [Lab 2: Operationalize Observability - Aggregate Metrics](../lab-2-agg)
@@ -175,15 +173,12 @@ Note: Throughout this workshop, we're going to focus purely on the Like service 
 
 ### Checkpoint
 
-Congratulations!!!  You've successfully instrumented the Like service to enable tracing. You also used filter expressions to group important trace data. This data gets reported to CloudWatch as a metric which you can use for operational dashboards and setting up alarms. On to the next lab!
+Congratulations!!!  You've successfully tested AWS X-Ray. You also used filter expressions to group important trace data. This data gets reported to CloudWatch as a metric which you can use for operational dashboards and setting up alarms. On to the next lab!
 
 Proceed to [Lab 2](../lab-2-agg)!
 
 [*^ back to top*](#lab-1-distributed-tracing-with-AWS-X-Ray)
 
-## Participation
-
-We encourage participation; if you find anything, please submit an [issue](https://github.com/aws-samples/aws-multi-region-bc-dr-workshop/issues). However, if you want to help raise the bar, submit a [PR](https://github.com/aws-samples/aws-multi-region-bc-dr-workshop/pulls)!
 
 <!--## License
 

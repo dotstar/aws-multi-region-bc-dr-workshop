@@ -57,7 +57,7 @@ If you're not attending an AWS event, you will need to use your own account. Mak
 
     Region | Launch Template
     ------------ | -------------  
-    **Ohio** (us-ease-2) | [![Launch Mythical Mysfits Stack into Oregon with CloudFormation](/images/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=mm-multi-region&templateURL=https://mythical-mysfits-website.s3.amazonaws.com/multi-region-bcdr/core.yml)
+    **Ohio** (us-east-2) | [![Launch Mythical Mysfits Stack into Ohio with CloudFormation](/images/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=mm-multi-region&templateURL=https://mythical-mysfits-website.s3.amazonaws.com/multi-region-bcdr/core.yml)
 
     The link will load the AWS CloudFormation console in the selected region and populate the Amazon S3 URL with the location of the core workshop CloudFormation template. If you want to review the core and nested templates, you can find them in the cfn folder of the GitHub repo.
 
@@ -186,7 +186,7 @@ cd ~/environment/aws-multi-region-bc-dr-workshop
 bootstrap/setup
 </pre>
 
-The script takes less than a minute to run. 
+The script takes less than a minute to run.
 
 
 
@@ -212,4 +212,3 @@ Open a new tab and browsed to that address.  In several minutes, the service bec
 # Checkpoint
 
 When you browse to the load balancer endpoint, and see the Mysfits, you are ready to move on to lab 1. [Proceed to Lab 1](../lab-1-xray)
-

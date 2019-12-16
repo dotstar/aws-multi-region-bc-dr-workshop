@@ -9,6 +9,7 @@
         }
     ],
     "desiredCount": 2,
+	"healthCheckGracePeriodSeconds":	600
     "launchType": "FARGATE",
     "deploymentConfiguration": {
         "maximumPercent": 200,

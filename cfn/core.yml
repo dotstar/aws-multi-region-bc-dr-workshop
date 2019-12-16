@@ -411,9 +411,13 @@ Resources:
     Condition: PrimaryRegion
     Properties:
       AutomaticStopTimeMinutes: 30
-      InstanceType: t2.small
+      InstanceType: t3.small
       Name: !Sub Project-${AWS::StackName}
       SubnetId: !Ref PublicSubnetOne
+      Repositories:
+        - 
+          PathComponent: "/aws-multi-region-bc-dr-workshop"
+          RepositoryUrl: "https://github.com/dotstar/aws-multi-region-bc-dr-workshop.git"
 
   CoreServiceRepo:
     Type: AWS::ECR::Repository
@@ -425,6 +429,9 @@ Resources:
     Type: AWS::ECS::Cluster
     Properties:
       ClusterName: !Sub Cluster-${AWS::StackName}
+      Tags:
+        - Key: "Project"
+          Value: "lab"
 
   MythicalServiceLogGroup:
     Type: AWS::Logs::LogGroup
@@ -616,6 +623,8 @@ Resources:
       TaskDefinition: !Ref SecondaryCoreServiceTaskDefinition
       DesiredCount: 2
       LaunchType: FARGATE
+      HealthCheckGracePeriodSeconds: 600
+      # EnableECSManagedTags: True
       LoadBalancers:
       - TargetGroupArn: !Ref MythicalServiceTargetGroup
         ContainerPort: 8080
@@ -638,6 +647,8 @@ Resources:
       TaskDefinition: !Ref SecondaryLikeServiceTaskDefinition
       DesiredCount: 2
       LaunchType: FARGATE
+      HealthCheckGracePeriodSeconds: 600
+      # EnableECSManagedTags: True
       LoadBalancers:
       - TargetGroupArn: !Ref LikeServiceTargetGroup
         ContainerPort: 8080
@@ -701,7 +712,7 @@ Resources:
       TargetType: ip
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
-          Value: '30'
+          Value: '20'
 
   LikeServiceTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
@@ -710,14 +721,14 @@ Resources:
       HealthCheckPath: /
       HealthCheckProtocol: HTTP
       HealthyThresholdCount: 2
-      UnhealthyThresholdCount: 2
+      UnhealthyThresholdCount: 3
       Port: 8080
       Protocol: HTTP
       VpcId: !Ref VPC
       TargetType: ip
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
-          Value: '30'
+          Value: '20'
 
   MythicalLikeListenerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
@@ -772,19 +783,19 @@ Resources:
       EcsClusterName: !Ref MythicalEcsCluster
       SecondaryRegion: !Ref IsSecondary
 
-  SecondaryCleanDeletionCustomResource:
-    # Removing from secondary region for time being. Todo.
-    Condition: SecondaryRegion
-    Type: Custom::CleanDelete
-    # DependsOn: CleanDeletionLambdaFunction
-    Properties:
-      ServiceToken: !GetAtt CleanDeletionLambdaFunction.Arn
-      Region: !Ref AWS::Region
-      CfnStackName: !Ref AWS::StackName
-      CoreServiceRepo: !Ref CoreServiceRepo
-      LikeServiceRepo: !Ref LikeServiceRepo
-      EcsClusterName: !Ref MythicalEcsCluster
-      SecondaryRegion: !Ref IsSecondary
+  # SecondaryCleanDeletionCustomResource:
+    # # Removing from secondary region for time being. Todo.
+    # Condition: SecondaryRegion
+    # Type: Custom::CleanDelete
+    # # DependsOn: CleanDeletionLambdaFunction
+    # Properties:
+      # ServiceToken: !GetAtt CleanDeletionLambdaFunction.Arn
+      # Region: !Ref AWS::Region
+      # CfnStackName: !Ref AWS::StackName
+      # CoreServiceRepo: !Ref CoreServiceRepo
+      # LikeServiceRepo: !Ref LikeServiceRepo
+      # EcsClusterName: !Ref MythicalEcsCluster
+      # SecondaryRegion: !Ref IsSecondary
 
   #Actual Lambda function to delete stuff
   CleanDeletionLambdaFunction:
