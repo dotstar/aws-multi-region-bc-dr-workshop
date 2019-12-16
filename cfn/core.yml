@@ -443,10 +443,10 @@ Resources:
     Condition: PrimaryRegion
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Cpu: '512'
+      Cpu: '256'
       ExecutionRoleArn: !GetAtt EcsServiceRole.Arn
       Family: !Sub Core-Service-${AWS::StackName}
-      Memory: '1024'
+      Memory: '512'
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
@@ -486,10 +486,10 @@ Resources:
     Condition: PrimaryRegion
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Cpu: '512'
+      Cpu: '256'
       ExecutionRoleArn: !GetAtt EcsServiceRole.Arn
       Family: !Sub Like-Service-${AWS::StackName}
-      Memory: '1024'
+      Memory: '512'
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
@@ -531,10 +531,10 @@ Resources:
     Condition: SecondaryRegion
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Cpu: '512'
+      Cpu: '256'
       ExecutionRoleArn: !GetAtt EcsServiceRole.Arn
       Family: !Sub Secondary-Core-Service-${AWS::StackName}
-      Memory: '1024'
+      Memory: '512'
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE

@@ -100,8 +100,9 @@ AWS announced CloudWatch Synthetics at re:Invent 2019.  The service preview is a
 
 
 
-# Checkpoint
+# Lab Complete
 
 Excellent, you've completed building out the operational CloudWatch dashboard by adding a widget that graphs X-Ray trace data collected from the Like service; specifically you're using the faults and errors filter expression group to isolate 4xx/5xx status codes to be displayed.
 
-Proceed to [Lab 3](../lab-3-mr-prep)!
+You also added a canary, to baseline service response time from outside your VPC.
+
