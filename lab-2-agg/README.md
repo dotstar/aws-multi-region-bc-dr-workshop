@@ -72,6 +72,34 @@ Reminder: [What is an AWS X-Ray trace?](https://docs.aws.amazon.com/xray/latest/
 
 </details>
 
+### [3] Create a CloudWatch Canary
+
+Amazon CloudWatch Synthetics enables you to create canaries to monitor your endpoints and APIs. Canaries are configurable scripts that follow the same routes and perform the same actions as a customer. This enables the outside-in view of your customers’ experiences, and your service’s availability from their point of view. 
+
+1. Navigate to the Amazon [CloudWatch service](https://console.aws.amazon.com/cloudwatch/) from the Management Console
+2. Select **Canaries** from the menu on the left, near the bottom
+3. Click "**Create Canary**"
+4. _Use a **blueprint**_
+5. _API canary_
+6. Name "mythical_core_api"
+7. Method: GET
+8. recall the URL of your Mysfits core service
+   ```
+    jq < ~/environment/aws-multi-region-bc-dr-workshop/cfn-output.json -er '.LoadBalancerDNS'                                                                                          
+   ```
+9. Add the Service endpoint URL to the URL for Canary, for example: http://alb-mm8-626376333.us-east-2.elb.amazonaws.com
+
+10. Click "Create Canary" at bottom of the page.
+
+   After several minutes, the Canary will begin to poll the API endpoint, and log the response time.
+
+11. Time permitting, add the Canary results to your CloudWatch Dashboard.  Hint - the value you are looking for is in All -> CloudWatchSynthetics -> mythical-core-api -> Duration.
+
+AWS announced CloudWatch Synthetics at re:Invent 2019.  The service preview is available in Ohio, Virginia, and Ireland.
+
+
+
+
 # Checkpoint
 
 Excellent, you've completed building out the operational CloudWatch dashboard by adding a widget that graphs X-Ray trace data collected from the Like service; specifically you're using the faults and errors filter expression group to isolate 4xx/5xx status codes to be displayed.

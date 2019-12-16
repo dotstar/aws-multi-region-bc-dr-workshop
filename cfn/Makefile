@@ -1,4 +1,4 @@
-stackName=mm7
+stackName=mm8
 bucket=daveaws/cloudformation/mm
 all: core
 
